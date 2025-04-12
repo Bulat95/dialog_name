@@ -2,10 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.getElementById('sendButton');
 
-    // Add event listener for the send button
     sendButton.addEventListener('click', addMessage);
 
-    // Add event listener for pressing Enter in the input field
     messageInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             addMessage();
@@ -19,33 +17,26 @@ function addMessage() {
     const messageText = messageInput.value.trim();
 
     if (messageText) {
-        // Add user message
         const userMessage = document.createElement('div');
         userMessage.className = 'chat-message user-message';
         userMessage.textContent = messageText;
         chat.appendChild(userMessage);
 
-        // Clear input and focus
         messageInput.value = '';
         messageInput.focus();
 
-        // Scroll to bottom
         chat.scrollTop = chat.scrollHeight;
 
-        // Show loading indicator
         const loadingMessage = document.createElement('div');
         loadingMessage.className = 'chat-message loading';
         loadingMessage.textContent = 'Loading...';
         chat.appendChild(loadingMessage);
         chat.scrollTop = chat.scrollHeight;
 
-        // Call API
         invokeChute(messageText)
             .then(response => {
-                // Remove loading indicator
                 chat.removeChild(loadingMessage);
 
-                // Add AI response
                 const aiMessage = document.createElement('div');
                 aiMessage.className = 'chat-message ai-message';
                 aiMessage.textContent = response;
@@ -53,10 +44,8 @@ function addMessage() {
                 chat.scrollTop = chat.scrollHeight;
             })
             .catch(error => {
-                // Remove loading indicator
                 chat.removeChild(loadingMessage);
 
-                // Add error message
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'chat-message error-message';
                 errorMessage.textContent = 'Error: Could not get response';
@@ -83,7 +72,7 @@ async function invokeChute(text) {
                         "content": text
                     }
                 ],
-                "stream": false, // Changed to false for simplicity
+                "stream": false,
                 "max_tokens": 1024,
                 "temperature": 0.7
             })
