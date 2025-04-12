@@ -94,10 +94,7 @@ function displayUserInfo(user) {
     const userInfoElement = document.getElementById('user-info');
     if (userInfoElement) {
         userInfoElement.innerHTML = `
-            <p>ID: ${user.id}</p>
             <p>Имя: ${user.first_name}</p>
-            <p>Фамилия: ${user.last_name || 'Не указана'}</p>
-            <p>Имя пользователя: ${user.username ? '@' + user.username : 'Не указано'}</p>
         `;
     }
 
