@@ -6,32 +6,27 @@
     <meta name="viewport" content="width=device-width, initial=1.0">
     <title>Информация о пользователе</title>
     <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="user-info"></div>
-    <script>
-        if (window.Telegram && window.Telegram.WebApp) {
-            const webApp = window.Telegram.WebApp;
-            webApp.ready();
-            const user = webApp.initDataUnsafe.user;
-            if (user) {
-                document.getElementById('user-info').innerHTML = `
-          <p>Идентификатор: ${user.id}</p>
-          <p>Имя: ${user.first_name}</p>
-          <p>Фамилия: ${user.last_name || 'Н/Д'}</p>
-          <p>Имя пользователя: ${user.username || 'Н/Д'}</p>
-          <p>Код языка: ${user.language_code || 'Н/Д'}</p>
-          <p>Премиум: ${user.is_premium ? 'Да' : 'Нет'}</p>
-          <p>Фото профиля: ${user.photo_url ? '<img src="${user.photo_url}" alt="Фото профиля">' : 'Н/Д'}</p>
-        `;
-            } else {
-                document.getElementById('user-info').innerHTML = '<p>Данные пользователя недоступны</p>';
-            }
-        } else {
-            document.getElementById('user-info').innerHTML = '<p>Эта страница должна быть открыта в Telegram Mini App</p>';
-        }
-    </script>
+    <div class="container">
+        <div id="user-info"></div>
+        <div id="chat-container" class="chat-container">
+            <div class="chat-message">Привет! Как я могу вам помочь?</div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Введите ваше сообщение">
+            <button id="sendButton">Отправить</button>
+        </div>
+        <div id="admin-panel" class="admin-panel hidden">
+            <h2>Панель администратора</h2>
+            <div id="users-list"></div>
+        </div>
+    </div>
+
+    <script src="telegram_script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
